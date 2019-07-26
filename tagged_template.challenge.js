@@ -9,11 +9,10 @@ let userId = 3; //data we got from somewhere else (api or database)
 let command = `SELECT *`;
 let table = `USERS`;
 let whereClauses = [
-  `uid = ${2 + 1}
-    OR city = "${city}"`
+  `uid = ${2 + 1} OR city = "${city}"`
 ];
-let order = `ASC`;
-var result = checkQuery`${command}FROM${table}WHERE${whereClauses}ORDER BY${order}`;
+let order = `ORDER BY ASC`;
+var result = checkQuery`${command}FROM${table}WHERE${whereClauses}${order}`;
 console.log(result);
 // Your code to call the tag and log the return value here...
 // your output should be - SELECT * FROM USERS WHERE uid = 3 OR city = chicago ORDER BY asc
@@ -24,7 +23,7 @@ function checkQuery(strings, ...exp) {
   var str1 = strings[2];
   var str2 = strings[3];
   if (
-    (exp[0] === "SELECT *" || (exp[0] === "UPDATE *" && exp[3] === "ASC")) &&
+    (exp[0] === "SELECT *" || (exp[0] === "UPDATE *" && exp[3] === "ORDER BY ASC")) &&
     !(exp[0] === "UPDATE *" && exp[1] === "PASSWORDS")
   ) {
     finalQuery = `${exp[0]} ${str0} ${exp[1]} ${str1} ${exp[2]} ${str2} ${
